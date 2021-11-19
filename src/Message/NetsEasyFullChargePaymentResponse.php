@@ -6,7 +6,7 @@ namespace Nyehandel\Omnipay\Nets\Message;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-final class NetsEasyCreatePaymentResponse extends AbstractResponse implements RedirectResponseInterface
+final class NetsEasyFullChargePaymentResponse extends AbstractResponse implements RedirectResponseInterface
 {
     /**
      * @inheritDoc

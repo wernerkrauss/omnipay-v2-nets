@@ -6,7 +6,6 @@
 namespace Nyehandel\Omnipay\Nets\Message;
 
 use Omnipay\Common\ItemBag;
-use Nyehandel\Omnipay\Nets\NetsItem;
 use Nyehandel\Omnipay\Nets\NetsItemBag;
 use Psr\Http\Message\ResponseInterface;
 
@@ -45,154 +44,14 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('secretKey', $value);
     }
 
-    public function getSignature()
+    public function setPaymentId($value)
     {
-        return $this->getParameter('signature');
+        return $this->setParameter('paymentId', $value);
     }
 
-    public function setSignature($value)
+    public function getPaymentId()
     {
-        return $this->setParameter('signature', $value);
-    }
-
-    public function getSubject()
-    {
-        return $this->getParameter('subject');
-    }
-
-    public function setSubject($value)
-    {
-        return $this->setParameter('subject', $value);
-    }
-
-    public function getSolutionType()
-    {
-        return $this->getParameter('solutionType');
-    }
-
-    public function setSolutionType($value)
-    {
-        return $this->setParameter('solutionType', $value);
-    }
-
-    public function getLandingPage()
-    {
-        return $this->getParameter('landingPage');
-    }
-
-    public function setLandingPage($value)
-    {
-        return $this->setParameter('landingPage', $value);
-    }
-
-    public function getBorderColor()
-    {
-        return $this->getParameter('borderColor');
-    }
-
-    public function setBorderColor($value)
-    {
-        return $this->setParameter('borderColor', $value);
-    }
-
-    public function getBrandName()
-    {
-        return $this->getParameter('brandName');
-    }
-
-    public function setBrandName($value)
-    {
-        return $this->setParameter('brandName', $value);
-    }
-
-    public function setNoShipping($value)
-    {
-        return $this->setParameter('noShipping', $value);
-    }
-
-    public function getAllowNote()
-    {
-        return $this->getParameter('allowNote');
-    }
-
-    public function setAllowNote($value)
-    {
-        return $this->setParameter('allowNote', $value);
-    }
-
-    public function getAddressOverride()
-    {
-        return $this->getParameter('addressOverride');
-    }
-
-    public function getMaxAmount()
-    {
-        return $this->getParameter('maxAmount');
-    }
-
-    public function setMaxAmount($value)
-    {
-        return $this->setParameter('maxAmount', $value);
-    }
-
-    public function getTaxAmount()
-    {
-        return $this->getParameter('taxAmount');
-    }
-
-    public function setTaxAmount($value)
-    {
-        return $this->setParameter('taxAmount', $value);
-    }
-
-    public function getShippingAmount()
-    {
-        return $this->getParameter('shippingAmount');
-    }
-
-    public function setShippingAmount($value)
-    {
-        return $this->setParameter('shippingAmount', $value);
-    }
-
-    public function getHandlingAmount()
-    {
-        return $this->getParameter('handlingAmount');
-    }
-
-    public function setHandlingAmount($value)
-    {
-        return $this->setParameter('handlingAmount', $value);
-    }
-
-    public function getShippingDiscount()
-    {
-        return $this->getParameter('shippingDiscount');
-    }
-
-    public function setShippingDiscount($value)
-    {
-        return $this->setParameter('shippingDiscount', $value);
-    }
-
-    public function setUrl($value)
-    {
-        return $this->setParameter('url', $value);
-    }
-
-    public function getUrl()
-    {
-        return $this->getParameter('url');
-    }
-
-    public function setTermsUrl($value)
-    {
-        return $this->setParameter('termsUrl', $value);
-    }
-
-    public function getTermsUrl()
-    {
-        return $this->getParameter('termsUrl');
+        return $this->getParameter('paymentId');
     }
 
     public function setReference($value)
@@ -203,66 +62,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getReference()
     {
         return $this->getParameter('reference');
-    }
-
-    public function setSupportedCustomerTypes($value)
-    {
-        return $this->setParameter('supportedCustomerTypes', $value);
-    }
-
-    public function getSupportedCustomerTypes()
-    {
-        return $this->getParameter('supportedCustomerTypes');
-    }
-
-    public function setDefaultCustomerType($value)
-    {
-        return $this->setParameter('defaultCustomerType', $value);
-    }
-
-    public function getDefaultCustomerType()
-    {
-        return $this->getParameter('defaultCustomerType');
-    }
-
-    public function setWebhooks($value)
-    {
-        return $this->setParameter('webhooks', $value);
-    }
-
-    public function getWebhooks()
-    {
-        return $this->getParameter('webhooks');
-    }
-
-    public function setExternalShippingAddress($value)
-    {
-        return $this->setParameter('externalShippingAddress', $value);
-    }
-
-    public function getExternalShippingAddress()
-    {
-        return $this->getParameter('externalShippingAddress');
-    }
-
-    public function setConsumer($value)
-    {
-        return $this->setParameter('consumer', $value);
-    }
-
-    public function getConsumer()
-    {
-        return $this->getParameter('consumer');
-    }
-
-    public function setPaymentId($value)
-    {
-        return $this->setParameter('paymentId', $value);
-    }
-
-    public function getPaymentId()
-    {
-        return $this->getParameter('paymentId');
     }
 
     protected function getBaseData()
@@ -297,49 +96,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
                 $data['amount'] += $grossTotalAmount;
             }
         }
-
-        return $data;
-    }
-
-    protected function getCustomerTypesData()
-    {
-        $data = [];
-        $supportedCustomerTypes = $this->getSupportedCustomerTypes();
-
-        $data['default'] = $this->getDefaultCustomerType() ?? $supportedCustomerTypes[0];
-
-        foreach ($supportedCustomerTypes as $supportedCustomerType) {
-            $data['supportedTypes'][] = $supportedCustomerType;
-        }
-
-        return $data;
-    }
-
-    protected function getNotificationsData()
-    {
-        $data = [];
-        $webhooks = $this->getWebhooks();
-
-        if ($webhooks) {
-            foreach ($webhooks as $webhook) {
-                $data['webhooks'][] = [
-                    'eventName' => $webhook['eventName'],
-                    'url' => $webhook['url'],
-                    'authorization' => $webhook['authorization'],
-                ];
-            }
-        }
-
-        return $data;
-    }
-
-    protected function setConsumerData($data)
-    {
-        // TODO: complete this
-        $data['checkout']['consumer'] = [
-        ];
-
-        $data['checkout']['merchantHandlesConsumerData'] = true;
 
         return $data;
     }

@@ -54,7 +54,7 @@ class NetsEasyCheckoutGateway extends AbstractGateway
         return $this->setParameter('signature', $value);
     }
 
-    public function createPayment(array $parameters = array())
+    public function authorize(array $parameters = array())
     {
         return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyCreatePaymentRequest', $parameters);
     }
@@ -64,23 +64,23 @@ class NetsEasyCheckoutGateway extends AbstractGateway
         return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyUpdateOrderRequest', $parameters);
     }
 
-    public function purchase(array $parameters = array())
+    public function retrievePayment(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Nets\Message\NetsEasyPurchaseRequest', $parameters);
+        return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyRetrievePaymentRequest', $parameters);
     }
 
-    public function capture(array $parameters = array())
+    public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Nets\Message\CaptureRequest', $parameters);
+        // TODO: Implement paritital purchase
+    }
+
+    public function completePurchase(array $parameters = array())
+    {
+        return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyFullChargePaymentRequest', $parameters);
     }
 
     public function refund(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Nets\Message\RefundRequest', $parameters);
-    }
-
-    public function fetchTransaction(array $parameters = array())
-    {
-        return $this->createRequest('\Omnipay\Nets\Message\FetchTransactionRequest', $parameters);
+        // TODO: Implement refund
     }
 }

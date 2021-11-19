@@ -6,14 +6,15 @@ namespace Nyehandel\Omnipay\Nets\Message;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-final class NetsEasyCreatePaymentResponse extends AbstractResponse implements RedirectResponseInterface
+final class NetsEasyRetrievePaymentResponse extends AbstractResponse implements RedirectResponseInterface
 {
+
     /**
      * @inheritDoc
      */
     public function isSuccessful(): bool
     {
-        return $this->getCode() == 201;
+        return $this->getCode() == 200;
     }
 }
 

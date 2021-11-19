@@ -18,13 +18,16 @@ class NetsEasyUpdateOrderRequest extends AbstractRequest
         return $data;
     }
 
+    public function getEndpoint()
+    {
+        return parent::getEndpoint() . '/payments/' . $this->getPaymentId() . '/orderitems';
+    }
+
     public function sendData($data)
     {
-        $path = '/payments/' . $this->getPaymentId() . '/orderitems';
-
         $httpResponse = $this->httpClient->request(
             'PUT',
-            $this->getEndpoint() . $path,
+            $this->getEndpoint(),
             $this->getHeaders(),
             json_encode($data),
         );
